@@ -1,0 +1,381 @@
+<!DOCTYPE html> 
+<html lang="uk"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>ГІЛЕЯ-НОВА | HYLAEA-NOVA</title> 
+    <style> 
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap'); 
+
+        :root { 
+            --primary: #020617; 
+            --accent: #00f2ff; 
+            --gold: #ffcc00; 
+            --text: #94a3b8; 
+            --white: #ffffff; 
+            --card-bg: rgba(255, 255, 255, 0.02); 
+            --glass: rgba(0, 242, 255, 0.05);
+        } 
+
+        body { 
+            margin: 0; font-family: 'Space Grotesk', sans-serif; 
+            background-color: var(--primary); color: var(--text); 
+            overflow-x: hidden; scroll-behavior: smooth; 
+        } 
+
+        .space-bg { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%); 
+            z-index: -1; 
+        } 
+
+        nav { 
+            display: flex; justify-content: center; align-items: center; 
+            padding: 15px 0; background: rgba(2, 6, 23, 0.95); 
+            position: fixed; top: 0; width: 100%; z-index: 1000; 
+            border-bottom: 1px solid rgba(0, 242, 255, 0.1); 
+            gap: 10px; backdrop-filter: blur(10px); 
+        } 
+
+        .nav-btn { 
+            background: none; border: none; color: var(--text); 
+            cursor: pointer; font-size: 11px; letter-spacing: 2px; 
+            text-transform: uppercase; padding: 10px 15px; 
+            transition: 0.3s; font-weight: 500; 
+        } 
+
+        .nav-btn.active { color: var(--accent); background: rgba(0, 242, 255, 0.05); } 
+
+        .hero { 
+            height: 95vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center; 
+            padding: 0 20px; 
+        } 
+
+        h1 { 
+            font-size: clamp(40px, 8vw, 95px); 
+            margin: 0; color: var(--white); letter-spacing: 15px; 
+            text-transform: uppercase; line-height: 1; 
+        } 
+
+        .english-name { 
+            font-size: clamp(14px, 2vw, 26px); 
+            color: var(--accent); letter-spacing: 20px; 
+            text-transform: uppercase; margin-top: 5px; 
+            font-weight: 300; opacity: 0.9; 
+        } 
+
+        .main-image-container {
+            width: 100%; max-width: 1100px; margin: 30px auto;
+            border-radius: 24px; overflow: hidden;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.1);
+            cursor: pointer; position: relative;
+        }
+
+        .main-image-container img { width: 100%; display: block; transition: 0.5s; }
+        .main-image-container:hover img { transform: scale(1.02); }
+
+        .map-grid {
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+            max-width: 1100px; 
+            margin: 40px auto; 
+            padding: 0 20px;
+        }
+
+        .map-card {
+            background: var(--glass); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px; padding: 15px; cursor: pointer; transition: 0.3s;
+        }
+
+        .map-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .map-card img { width: 100%; border-radius: 10px; }
+        .map-label { margin-top: 10px; font-size: 12px; letter-spacing: 1px; color: var(--white); text-transform: uppercase; }
+
+        #modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center;
+        }
+        #modal img { max-width: 90%; max-height: 90%; border-radius: 10px; box-shadow: 0 0 30px var(--accent); }
+
+        .economy-box { 
+            max-width: 800px; margin: 40px auto; padding: 30px; 
+            background: rgba(0, 242, 255, 0.03); border: 1px solid rgba(0, 242, 255, 0.2); 
+            border-radius: 20px; 
+        } 
+
+        .progress-bar { 
+            width: 100%; height: 12px; background: rgba(255,255,255,0.05); 
+            border-radius: 6px; overflow: hidden; border: 1px solid rgba(0,242,255,0.1); 
+            margin: 15px 0; 
+        } 
+
+        .progress-fill { width: 0%; height: 100%; background: var(--accent); transition: 2s ease-in-out; } 
+
+        .btn-main { 
+            margin-top: 20px; padding: 20px 55px; 
+            background: transparent; border: 1px solid var(--accent); 
+            color: var(--accent); font-weight: bold; letter-spacing: 4px; 
+            text-transform: uppercase; transition: 0.4s; cursor: pointer; 
+        } 
+
+        .btn-main:hover { background: var(--accent); color: var(--primary); box-shadow: 0 0 50px rgba(0, 242, 255, 0.6); } 
+
+        .tab-content { display: none; min-height: 100vh; padding-top: 120px; animation: fadeIn 0.8s ease-out; } 
+        .tab-content.active { display: block; } 
+
+        .citizen-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .citizen-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            text-align: center;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .citizen-card:hover {
+            border-color: var(--accent);
+            background: rgba(0, 242, 255, 0.05);
+            transform: translateY(-10px);
+        }
+
+        .citizen-card h3 { color: var(--white); margin-bottom: 10px; }
+        .citizen-card .price { font-size: 32px; color: var(--accent); font-weight: bold; margin: 15px 0; }
+        .citizen-card ul { list-style: none; padding: 0; font-size: 13px; text-align: left; color: var(--text); }
+        .citizen-card li { margin-bottom: 8px; }
+        .citizen-card li::before { content: "• "; color: var(--accent); }
+
+        .special-card { border-color: var(--gold); }
+        .special-card h3 { color: var(--gold); }
+        .special-card .price { color: var(--gold); }
+
+        /* ВІКНО ДОНАТУ */
+        .donation-box {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0, 242, 255, 0.05) 0%, rgba(2, 6, 23, 0.8) 100%);
+            border: 1px dashed var(--accent);
+            border-radius: 30px;
+            text-align: center;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } } 
+        footer { padding: 60px; text-align: center; opacity: 0.4; font-size: 12px; } 
+
+        @media (max-width: 768px) {
+            .map-grid { grid-template-columns: 1fr; }
+        }
+    </style> 
+</head> 
+<body> 
+
+    <div class="space-bg"></div> 
+
+    <nav> 
+        <button class="nav-btn active" onclick="openTab(event, 'home')">Головна</button> 
+        <button class="nav-btn" onclick="openTab(event, 'territory')">Територія</button> 
+        <button class="nav-btn" onclick="openTab(event, 'army')">Армія</button> 
+        <button class="nav-btn" onclick="openTab(event, 'citizenship')" style="color: var(--gold);">Громадянство</button> 
+    </nav> 
+
+    <div id="home" class="tab-content active"> 
+        <header class="hero"> 
+            <div class="logo-group"> 
+                <h1>ГІЛЕЯ-НОВА</h1> 
+                <div class="english-name">HYLAEA-NOVA</div> 
+            </div> 
+
+            <p style="letter-spacing: 5px; text-transform: uppercase; color: var(--accent);">Майбутнє починається там, де закінчуються старі кордони</p> 
+            <div class="hero-info-box"> 
+                <p style="color: var(--accent); font-weight: bold; text-transform: uppercase;">Всі кошти спрямовуються на фонд закупівлі території та оборонний сектор.</p> 
+                <p class="manifesto">Ми віримо, що людина має бути вільною від географічних та політичних кайданів минулого. Приєднуючись до нас, ви стаєте частиною історії нової цивілізації.</p> 
+            </div> 
+            <button class="btn-main" onclick="openTab(null, 'citizenship')">Отримати громадянство</button> 
+        </header> 
+    </div> 
+
+    <div id="territory" class="tab-content"> 
+        <h2 style="text-align: center; color: #fff; letter-spacing: 5px;">ОБ'ЄКТ: ISLA CÉBACO (ГІЛЕЯ-НОВА)</h2> 
+
+        <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; color: var(--accent); font-size: 14px; text-transform: uppercase;"> 
+            <span>Довжина: 25.9 км</span> 
+            <span>Ширина: ~3.5 км</span> 
+            <span>Площа: 8,500 Га</span> 
+        </div> 
+
+        <div class="main-image-container" onclick="openImage('https://www.privateislandsonline.com/uploads/resize/_1205_5bb79f858b5ef.jpg-1360-1100.jpg')">
+            <img src="https://www.privateislandsonline.com/uploads/resize/_1205_5bb79f858b5ef.jpg-1360-1100.jpg" alt="Isla Cebaco - Hylaea Nova">
+        </div>
+
+        <div class="map-grid">
+            <div class="map-card" onclick="openImage('https://www.privateislandsonline.com/uploads/resize/_1205_5bb79f765658e.jpg-1360-1100.jpg')">
+                <img src="https://www.privateislandsonline.com/uploads/resize/_1205_5bb79f765658e.jpg-1360-1100.jpg" alt="Map 1">
+                <div class="map-label">ГЕОДЕЗИЧНИЙ АНАЛІЗ</div>
+            </div>
+            <div class="map-card" onclick="openImage('https://www.privateislandsonline.com/uploads/resize/_1205_5bb79f9a82465.jpg-1360-1100.jpg')">
+                <img src="https://www.privateislandsonline.com/uploads/resize/_1205_5bb79f9a82465.jpg-1360-1100.jpg" alt="Map 2">
+                <div class="map-label">МАСШТАБ ТА БЕРЕГОВА ЛІНІЯ</div>
+            </div>
+            <div class="map-card" onclick="openImage('https://www.privateislandsonline.com/uploads/resize/_1205_5bb79fa147975.jpg-1360-1100.jpg')">
+                <img src="https://www.privateislandsonline.com/uploads/resize/_1205_5bb79fa147975.jpg-1360-1100.jpg" alt="Map 3">
+                <div class="map-label">Стратегічне заснування</div>
+            </div>
+            <div class="map-card" onclick="openImage('https://www.privateislandsonline.com/uploads/resize/_1205_5bb79f1dc4148.jpg-1360-1100.jpg')">
+                <img src="https://www.privateislandsonline.com/uploads/resize/_1205_5bb79f1dc4148.jpg-1360-1100.jpg" alt="Map 4">
+                <div class="map-label">ЛАНДШАФТНИЙ ПЛАН</div>
+            </div>
+        </div>
+
+        <div class="economy-box"> 
+            <div style="display: flex; justify-content: space-between; align-items: flex-end;"> 
+                <div> 
+                    <h3 style="color: #fff; margin: 0;">ЦІНА ОБ'ЄКТА: $11,000,000</h3> 
+                    <p style="color: var(--text); font-size: 12px; margin: 5px 0 0 0;">(Викуп стратегічного сектору)</p> 
+                </div> 
+                <div style="text-align: right;"> 
+                    <span style="color: var(--accent); font-weight: bold; font-size: 20px;">$0</span> 
+                    <span style="color: rgba(255,255,255,0.3);"> / зібрано</span> 
+                </div> 
+            </div> 
+            <div class="progress-bar"><div class="progress-fill"></div></div> 
+            <button class="btn-main" style="width: 100%;" onclick="alert('Система внесків готується до запуску...')">ПІДТРИМАТИ ФОНД ТЕРИТОРІЇ</button> 
+        </div> 
+    </div> 
+
+    <div id="modal" onclick="closeImage()">
+        <img id="modalImg" src="" alt="Zoomed view">
+    </div>
+
+    <div id="army" class="tab-content"> 
+        <div style="text-align: center; padding: 100px 20px;">
+            <h2 style="color: var(--accent); font-size: 40px; letter-spacing: 10px;">DEFENSE FORCE</h2>
+            <div style="margin: 40px auto; max-width: 600px; border: 1px solid var(--accent); padding: 30px; border-radius: 20px; background: var(--glass);">
+                <p style="color: #fff; font-size: 24px; text-transform: uppercase; font-weight: bold; margin: 0;">Нічого немає</p>
+                <div class="progress-bar" style="height: 4px; background: rgba(0,242,255,0.1);"><div class="progress-fill" style="width: 2%;"></div></div>
+                <p style="color: var(--text); letter-spacing: 2px; margin-top: 20px;">ЙДЕ ПЕРШИЙ ЕТАП: ЗБІР КОШТІВ НА ЗАКУПІВЛЮ ТЕРИТОРІЇ</p>
+            </div>
+            <p style="font-size: 12px; opacity: 0.5;">Формування оборонного сектору розпочнеться одразу після викупу першого сектора острова.</p>
+        </div>
+    </div> 
+
+    <div id="citizenship" class="tab-content"> 
+        <h2 style="text-align: center; color: #fff; letter-spacing: 5px; margin-bottom: 50px;">ПРОГРАМА ГРОМАДЯНСТВА</h2> 
+        
+        <div class="citizen-grid">
+            <div class="citizen-card">
+                <div>
+                    <h3>E-RESIDENT</h3>
+                    <div class="price">$50</div>
+                    <ul>
+                        <li>Цифрове посвідчення</li>
+                        <li>Доступ до закритого чату</li>
+                        <li>Пріоритет на візу</li>
+                    </ul>
+                </div>
+                <button class="btn-main" style="padding: 15px; font-size: 12px;">ОБРАТИ</button>
+            </div>
+
+            <div class="citizen-card">
+                <div>
+                    <h3>FULL CITIZEN</h3>
+                    <div class="price">$250</div>
+                    <ul>
+                        <li>Паспорт громадянина (ID)</li>
+                        <li>Право на земельну ділянку</li>
+                        <li>Голосування в ДАО</li>
+                    </ul>
+                </div>
+                <button class="btn-main" style="padding: 15px; font-size: 12px;">ОБРАТИ</button>
+            </div>
+
+            <div class="citizen-card">
+                <div>
+                    <h3>INVESTOR</h3>
+                    <div class="price">$1,000</div>
+                    <ul>
+                        <li>Сертифікат інвестора</li>
+                        <li>Частка у прибутку острова</li>
+                    </ul>
+                </div>
+                <button class="btn-main" style="padding: 15px; font-size: 12px;">ОБРАТИ</button>
+            </div>
+
+            <div class="citizen-card special-card">
+                <div>
+                    <h3>SENATOR</h3>
+                    <div class="price">$5,000</div>
+                    <ul>
+                        <li>Статус Сенатора Гілеї</li>
+                        <li>Прямий зв'язок з радою</li>
+                        <li>Вплив на закони</li>
+                    </ul>
+                </div>
+                <button class="btn-main" style="border-color: var(--gold); color: var(--gold); padding: 15px; font-size: 12px;">ОБРАТИ</button>
+            </div>
+
+            <div class="citizen-card special-card">
+                <div>
+                    <h3>FOUNDER</h3>
+                    <div class="price">$25,000</div>
+                    <ul>
+                        <li>Ім'я в засновниках</li>
+                        <li>Резидентство без черги</li>
+                    </ul>
+                </div>
+                <button class="btn-main" style="background: var(--gold); color: var(--primary); padding: 15px; font-size: 12px;">ОБРАТИ</button>
+            </div>
+        </div>
+
+        <div class="donation-box">
+            <h3 style="color: var(--accent); letter-spacing: 3px;">ПІДТРИМАТИ ПРОЄКТ</h3>
+            <p style="color: var(--text); font-size: 14px; line-height: 1.6;">
+                Якщо ви не бажаєте отримувати статус громадянина, але вірите в нашу ідею вільної цивілізації, ви можете зробити добровільний внесок будь-якої суми.
+            </p>
+            <div style="margin-top: 25px;">
+                <button class="btn-main" style="width: 100%; border-style: dashed;" onclick="alert('Система пожертв готується до запуску...')">ЗРОБИТИ ВНЕСОК</button>
+            </div>
+            <p style="font-size: 10px; margin-top: 15px; opacity: 0.5;">Усі донати будуть занесені в публічний реєстр подяк проекту.</p>
+        </div>
+    </div> 
+
+    <footer> 
+        <p>&copy; 2025 HYLAEA-NOVA | THE SOVEREIGN STATE.</p> 
+    </footer> 
+
+    <script> 
+        function openTab(evt, tabName) { 
+            let tabcontent = document.getElementsByClassName("tab-content"); 
+            for (let i = 0; i < tabcontent.length; i++) tabcontent[i].style.display = "none"; 
+            let navbtns = document.getElementsByClassName("nav-btn"); 
+            for (let i = 0; i < navbtns.length; i++) navbtns[i].classList.remove("active"); 
+            document.getElementById(tabName).style.display = "block"; 
+            if (evt) evt.currentTarget.classList.add("active"); 
+            window.scrollTo(0,0);
+        } 
+
+        function openImage(url) {
+            document.getElementById('modal').style.display = 'flex';
+            document.getElementById('modalImg').src = url;
+        }
+
+        function closeImage() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script> 
+</body> 
+</html>
