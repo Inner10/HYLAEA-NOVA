@@ -1,11 +1,11 @@
 <!DOCTYPE html> 
-<html lang="uk"> 
+<html lang="uk">
 <head> 
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>ГІЛЕЯ-НОВА | HYLAEA-NOVA</title> 
     <style> 
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap'); 
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
 
         :root { 
             --primary: #020617; 
@@ -34,7 +34,7 @@
             padding: 15px 0; background: rgba(2, 6, 23, 0.95); 
             position: fixed; top: 0; width: 100%; z-index: 1000; 
             border-bottom: 1px solid rgba(0, 242, 255, 0.1); 
-            gap: 10px; backdrop-filter: blur(10px); 
+            gap: 10px; backdrop-filter: blur(10px); flex-wrap: wrap;
         } 
 
         .nav-btn { 
@@ -123,7 +123,7 @@
 
         .btn-main:hover { background: var(--accent); color: var(--primary); box-shadow: 0 0 50px rgba(0, 242, 255, 0.6); } 
 
-        .tab-content { display: none; min-height: 100vh; padding-top: 120px; animation: fadeIn 0.8s ease-out; } 
+        .tab-content { display: none; min-height: 100vh; padding-top: 120px; animation: fadeIn 0.8s ease-out; padding-bottom: 50px; } 
         .tab-content.active { display: block; } 
 
         .citizen-grid {
@@ -163,7 +163,23 @@
         .special-card h3 { color: var(--gold); }
         .special-card .price { color: var(--gold); }
 
-        /* ВІКНО ДОНАТУ */
+        .info-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .info-section {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 24px;
+            margin-bottom: 30px;
+        }
+        .info-section h3 { color: var(--accent); text-transform: uppercase; letter-spacing: 3px; }
+        .info-section p { line-height: 1.8; }
+        .info-section a { color: var(--accent); text-decoration: none; border-bottom: 1px dashed var(--accent); transition: 0.3s; }
+        .info-section a:hover { opacity: 0.7; }
+
         .donation-box {
             max-width: 600px;
             margin: 50px auto;
@@ -191,6 +207,7 @@
         <button class="nav-btn" onclick="openTab(event, 'territory')">Територія</button> 
         <button class="nav-btn" onclick="openTab(event, 'army')">Армія</button> 
         <button class="nav-btn" onclick="openTab(event, 'citizenship')" style="color: var(--gold);">Громадянство</button> 
+        <button class="nav-btn" onclick="openTab(event, 'info')">Інформація</button>
     </nav> 
 
     <div id="home" class="tab-content active"> 
@@ -198,25 +215,25 @@
             <div class="logo-group"> 
                 <h1>ГІЛЕЯ-НОВА</h1> 
                 <div class="english-name">HYLAEA-NOVA</div> 
-            </div> 
+            </div>
 
             <p style="letter-spacing: 5px; text-transform: uppercase; color: var(--accent);">Майбутнє починається там, де закінчуються старі кордони</p> 
             <div class="hero-info-box"> 
                 <p style="color: var(--accent); font-weight: bold; text-transform: uppercase;">Всі кошти спрямовуються на фонд закупівлі території та оборонний сектор.</p> 
                 <p class="manifesto">Ми віримо, що людина має бути вільною від географічних та політичних кайданів минулого. Приєднуючись до нас, ви стаєте частиною історії нової цивілізації.</p> 
-            </div> 
-            <button class="btn-main" onclick="openTab(null, 'citizenship')">Отримати громадянство</button> 
-        </header> 
+            </div>
+            <button class="btn-main" onclick="openTab(null, 'citizenship')">Отримати громадянство</button>
+        </header>
     </div> 
 
     <div id="territory" class="tab-content"> 
-        <h2 style="text-align: center; color: #fff; letter-spacing: 5px;">ОБ'ЄКТ: ISLA CÉBACO (ГІЛЕЯ-НОВА)</h2> 
+        <h2 style="text-align: center; color: #fff; letter-spacing: 5px;">ОБ'ЄКТ: ISLA CÉBACO (ГІЛЕЯ-НОВА)</h2>
 
         <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; color: var(--accent); font-size: 14px; text-transform: uppercase;"> 
             <span>Довжина: 25.9 км</span> 
             <span>Ширина: ~3.5 км</span> 
             <span>Площа: 8,500 Га</span> 
-        </div> 
+        </div>
 
         <div class="main-image-container" onclick="openImage('https://www.privateislandsonline.com/uploads/resize/_1205_5bb79f858b5ef.jpg-1360-1100.jpg')">
             <img src="https://www.privateislandsonline.com/uploads/resize/_1205_5bb79f858b5ef.jpg-1360-1100.jpg" alt="Isla Cebaco - Hylaea Nova">
@@ -245,16 +262,16 @@
             <div style="display: flex; justify-content: space-between; align-items: flex-end;"> 
                 <div> 
                     <h3 style="color: #fff; margin: 0;">ЦІНА ОБ'ЄКТА: $11,000,000</h3> 
-                    <p style="color: var(--text); font-size: 12px; margin: 5px 0 0 0;">(Викуп стратегічного сектору)</p> 
+                    <p style="color: var(--text); font-size: 12px; margin: 5px 0 0 0;">(Викуп стратегічного сектору)</p>
                 </div> 
                 <div style="text-align: right;"> 
                     <span style="color: var(--accent); font-weight: bold; font-size: 20px;">$0</span> 
                     <span style="color: rgba(255,255,255,0.3);"> / зібрано</span> 
                 </div> 
-            </div> 
+            </div>
             <div class="progress-bar"><div class="progress-fill"></div></div> 
             <button class="btn-main" style="width: 100%;" onclick="alert('Система внесків готується до запуску...')">ПІДТРИМАТИ ФОНД ТЕРИТОРІЇ</button> 
-        </div> 
+        </div>
     </div> 
 
     <div id="modal" onclick="closeImage()">
@@ -274,7 +291,7 @@
     </div> 
 
     <div id="citizenship" class="tab-content"> 
-        <h2 style="text-align: center; color: #fff; letter-spacing: 5px; margin-bottom: 50px;">ПРОГРАМА ГРОМАДЯНСТВА</h2> 
+        <h2 style="text-align: center; color: #fff; letter-spacing: 5px; margin-bottom: 50px;">ПРОГРАМА ГРОМАДЯНСТВА</h2>
         
         <div class="citizen-grid">
             <div class="citizen-card">
@@ -282,9 +299,9 @@
                     <h3>E-RESIDENT</h3>
                     <div class="price">$50</div>
                     <ul>
-                        <li>Цифрове посвідчення</li>
-                        <li>Доступ до закритого чату</li>
-                        <li>Пріоритет на візу</li>
+                       <li>Цифрове посвідчення</li>
+                       <li>Доступ до закритого чату</li>
+                       <li>Пріоритет на візу</li>
                     </ul>
                 </div>
                 <button class="btn-main" style="padding: 15px; font-size: 12px;">ОБРАТИ</button>
@@ -295,9 +312,9 @@
                     <h3>FULL CITIZEN</h3>
                     <div class="price">$250</div>
                     <ul>
-                        <li>Паспорт громадянина (ID)</li>
-                        <li>Право на земельну ділянку</li>
-                        <li>Голосування в ДАО</li>
+                       <li>Паспорт громадянина (ID)</li>
+                       <li>Право на земельну ділянку</li>
+                       <li>Голосування в ДАО</li>
                     </ul>
                 </div>
                 <button class="btn-main" style="padding: 15px; font-size: 12px;">ОБРАТИ</button>
@@ -308,8 +325,8 @@
                     <h3>INVESTOR</h3>
                     <div class="price">$1,000</div>
                     <ul>
-                        <li>Сертифікат інвестора</li>
-                        <li>Частка у прибутку острова</li>
+                       <li>Сертифікат інвестора</li>
+                       <li>Частка у прибутку острова</li>
                     </ul>
                 </div>
                 <button class="btn-main" style="padding: 15px; font-size: 12px;">ОБРАТИ</button>
@@ -320,9 +337,9 @@
                     <h3>SENATOR</h3>
                     <div class="price">$5,000</div>
                     <ul>
-                        <li>Статус Сенатора Гілеї</li>
-                        <li>Прямий зв'язок з радою</li>
-                        <li>Вплив на закони</li>
+                       <li>Статус Сенатора Гілеї</li>
+                       <li>Прямий зв'язок з радою</li>
+                       <li>Вплив на закони</li>
                     </ul>
                 </div>
                 <button class="btn-main" style="border-color: var(--gold); color: var(--gold); padding: 15px; font-size: 12px;">ОБРАТИ</button>
@@ -333,8 +350,8 @@
                     <h3>FOUNDER</h3>
                     <div class="price">$25,000</div>
                     <ul>
-                        <li>Ім'я в засновниках</li>
-                        <li>Резидентство без черги</li>
+                       <li>Ім'я в засновниках</li>
+                       <li>Резидентство без черги</li>
                     </ul>
                 </div>
                 <button class="btn-main" style="background: var(--gold); color: var(--primary); padding: 15px; font-size: 12px;">ОБРАТИ</button>
@@ -353,18 +370,62 @@
         </div>
     </div> 
 
+    <div id="info" class="tab-content">
+        <div class="info-container">
+            <h2 style="text-align: center; color: #fff; letter-spacing: 5px; margin-bottom: 50px;">ІНФОРМАЦІЙНИЙ ЦЕНТР</h2>
+            
+            <div class="info-section">
+                <h3>Наша Місія</h3>
+                <p>Гілея-Нова — це експериментальна суверенна держава, що створюється на принципах меритократії та цифрової свободи. Наша мета — викупити острів Isla Cébaco для створення вільної економічної зони, де технології та екологія існують в гармонії.</p>
+            </div>
+
+            <div class="info-section">
+                <h3>Дорожня карта 2025</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 15px; border-left: 2px solid var(--accent); padding-left: 15px;">
+                        <strong style="color: var(--white);">Етап 1:</strong> Збір коштів та формування спільноти (Зараз).
+                    </li>
+                    <li style="margin-bottom: 15px; border-left: 2px solid var(--text); padding-left: 15px;">
+                        <strong style="color: var(--white);">Етап 2:</strong> Юридичне оформлення території та запуск DAO.
+                    </li>
+                    <li style="margin-bottom: 15px; border-left: 2px solid var(--text); padding-left: 15px;">
+                        <strong style="color: var(--white);">Етап 3:</strong> Початок будівництва першої інфраструктури та еко-поселень.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h3>Контакти</h3>
+                <p>Ми завжди відкриті до пропозицій від інженерів, юристів та інвесторів.</p>
+                <p style="color: var(--accent); font-weight: bold; letter-spacing: 2px; margin-top: 15px;">
+                    ОФІЦІЙНИЙ EMAIL: <a href="mailto:hylaea.nova@gmail.com">hylaea.nova@gmail.com</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
     <footer> 
         <p>&copy; 2025 HYLAEA-NOVA | THE SOVEREIGN STATE.</p> 
     </footer> 
 
     <script> 
         function openTab(evt, tabName) { 
-            let tabcontent = document.getElementsByClassName("tab-content"); 
+            let tabcontent = document.getElementsByClassName("tab-content");
             for (let i = 0; i < tabcontent.length; i++) tabcontent[i].style.display = "none"; 
+            
             let navbtns = document.getElementsByClassName("nav-btn"); 
             for (let i = 0; i < navbtns.length; i++) navbtns[i].classList.remove("active"); 
+            
             document.getElementById(tabName).style.display = "block"; 
-            if (evt) evt.currentTarget.classList.add("active"); 
+            
+            if (evt) {
+                evt.currentTarget.classList.add("active"); 
+            } else {
+                let buttons = document.getElementsByClassName("nav-btn");
+                for(let btn of buttons) {
+                    if(btn.getAttribute('onclick').includes(tabName)) btn.classList.add("active");
+                }
+            }
             window.scrollTo(0,0);
         } 
 
