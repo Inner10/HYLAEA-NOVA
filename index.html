@@ -63,7 +63,18 @@
             color: var(--accent); letter-spacing: 20px; 
             text-transform: uppercase; margin-top: 5px; 
             font-weight: 300; opacity: 0.9; 
-        } 
+        }
+
+        .stat-badge {
+            margin-top: 20px;
+            padding: 8px 20px;
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: var(--white);
+            background: var(--glass);
+        }
 
         .main-image-container {
             width: 100%; max-width: 1100px; margin: 30px auto;
@@ -113,6 +124,16 @@
         } 
 
         .progress-fill { width: 0%; height: 100%; background: var(--accent); transition: 2s ease-in-out; } 
+
+        .remaining-text {
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--white);
+            margin-bottom: 20px;
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
 
         .btn-main { 
             margin-top: 20px; padding: 20px 55px; 
@@ -217,7 +238,9 @@
                 <div class="english-name">HYLAEA-NOVA</div> 
             </div>
 
-            <p style="letter-spacing: 5px; text-transform: uppercase; color: var(--accent);">Майбутнє починається там, де закінчуються старі кордони</p> 
+            <div class="stat-badge">НАСЕЛЕННЯ: <span id="pop-count">0</span></div>
+
+            <p style="letter-spacing: 5px; text-transform: uppercase; color: var(--accent); margin-top: 30px;">Майбутнє починається там, де закінчуються старі кордони</p> 
             <div class="hero-info-box"> 
                 <p style="color: var(--accent); font-weight: bold; text-transform: uppercase;">Всі кошти спрямовуються на фонд закупівлі території та оборонний сектор.</p> 
                 <p class="manifesto">Ми віримо, що людина має бути вільною від географічних та політичних кайданів минулого. Приєднуючись до нас, ви стаєте частиною історії нової цивілізації.</p> 
@@ -261,15 +284,20 @@
         <div class="economy-box"> 
             <div style="display: flex; justify-content: space-between; align-items: flex-end;"> 
                 <div> 
-                    <h3 style="color: #fff; margin: 0;">ЦІНА ОБ'ЄКТА: $11,000,000</h3> 
+                    <h3 style="color: #fff; margin: 0;">ЦІНА ОБ'ЄКТА: $<span id="total-target">0</span></h3> 
                     <p style="color: var(--text); font-size: 12px; margin: 5px 0 0 0;">(Викуп стратегічного сектору)</p>
                 </div> 
                 <div style="text-align: right;"> 
-                    <span style="color: var(--accent); font-weight: bold; font-size: 20px;">$0</span> 
+                    <span style="color: var(--accent); font-weight: bold; font-size: 20px;">$<span id="raised-amount">0</span></span> 
                     <span style="color: rgba(255,255,255,0.3);"> / зібрано</span> 
                 </div> 
             </div>
-            <div class="progress-bar"><div class="progress-fill"></div></div> 
+            <div class="progress-bar"><div id="progress-line" class="progress-fill"></div></div> 
+            
+            <div class="remaining-text">
+                ЗАЛИШИЛОСЯ НАЗБИРАТИ: <span id="remaining-amount" style="color: var(--accent); font-weight: bold;">$0</span>
+            </div>
+
             <button class="btn-main" style="width: 100%;" onclick="alert('Система внесків готується до запуску...')">ПІДТРИМАТИ ФОНД ТЕРИТОРІЇ</button> 
         </div>
     </div> 
@@ -408,7 +436,38 @@
         <p>&copy; 2025 HYLAEA-NOVA | THE SOVEREIGN STATE.</p> 
     </footer> 
 
-    <script> 
+    <script>
+        // ==========================================
+        // БЛОК РЕДАГУВАННЯ ДАНИХ (ЗМІНЮЙ ТУТ)
+        // ==========================================
+        const CONFIG = {
+            population: 0,           // Кількість населення
+            raisedMoney: 0,        // Скільки грошей вже зібрано ($)
+            totalTarget: 11000000      // Загальна ціль ($)
+        };
+        // ==========================================
+
+        function initCounters() {
+            // Населення
+            document.getElementById('pop-count').innerText = CONFIG.population.toLocaleString();
+            
+            // Гроші
+            document.getElementById('raised-amount').innerText = CONFIG.raisedMoney.toLocaleString();
+            document.getElementById('total-target').innerText = CONFIG.totalTarget.toLocaleString();
+            
+            // Розрахунок залишку (НОВЕ)
+            const remaining = CONFIG.totalTarget - CONFIG.raisedMoney;
+            document.getElementById('remaining-amount').innerText = "$" + remaining.toLocaleString();
+            
+            // Розрахунок прогресу
+            const percent = (CONFIG.raisedMoney / CONFIG.totalTarget) * 100;
+            document.getElementById('progress-line').style.width = Math.max(percent, 0.5) + "%";
+        }
+
+        window.onload = function() {
+            initCounters();
+        };
+
         function openTab(evt, tabName) { 
             let tabcontent = document.getElementsByClassName("tab-content");
             for (let i = 0; i < tabcontent.length; i++) tabcontent[i].style.display = "none"; 
@@ -423,7 +482,7 @@
             } else {
                 let buttons = document.getElementsByClassName("nav-btn");
                 for(let btn of buttons) {
-                    if(btn.getAttribute('onclick').includes(tabName)) btn.classList.add("active");
+                    if(btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(tabName)) btn.classList.add("active");
                 }
             }
             window.scrollTo(0,0);
