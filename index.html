@@ -102,10 +102,7 @@
         .phil-card h2 { color: var(--accent); font-family: 'Cinzel'; letter-spacing: 5px; }
         .phil-card p { font-size: 18px; line-height: 1.8; opacity: 0.8; }
 
-        .hub-experts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 100px; }
-        .expert-card { background: rgba(255,255,255,0.03); padding: 40px; border-radius: 30px; border: 1px solid rgba(0,242,255,0.1); }
-        .expert-card h4 { color: var(--white); font-size: 20px; margin-bottom: 15px; border-bottom: 1px solid var(--accent); padding-bottom: 10px; }
-
+        /* --- CONTACT --- */
         .contact-box { background: linear-gradient(135deg, rgba(2,6,23,1) 0%, rgba(0,242,255,0.15) 100%); border: 2px solid var(--accent); border-radius: 60px; padding: 120px 40px; margin: 150px auto; max-width: 1000px; text-align: center; position: relative; }
         .contact-link { font-size: clamp(20px, 5vw, 45px); color: var(--accent); text-decoration: none; font-weight: 700; letter-spacing: 4px; display: block; margin: 40px 0; }
 
@@ -131,7 +128,6 @@
         <header class="hero"> 
             <h1>ГІЛЕЯ-НОВА</h1> 
             <div class="hero-subtitle">The Great Sovereign Order</div> 
-            
             <button class="cta-hero" onclick="scrollToTab('citizenship')">Стати громадянином</button>
 
             <div class="stats-bar">
@@ -148,7 +144,6 @@
 
     <section id="territory"> 
         <h2 class="section-title">ISLA CÉBACO | ТЕРИТОРІЯ</h2>
-        
         <div class="territory-stats">
             <div class="t-stat-card"><span class="t-stat-val">15,000,000</span><span class="t-stat-label">Ціна Острова $</span></div>
             <div class="t-stat-card"><span class="t-stat-val" id="t-raised">0</span><span class="t-stat-label">Вже накопичено $</span></div>
@@ -197,9 +192,10 @@
             <div class="hyl-box" onclick="openImage('ID-карта.jpg')"><img src="ID-карта.jpg"><span>ID Card</span></div>
             <div class="hyl-box" onclick="openImage('права.jpg')"><img src="права.jpg"><span>License</span></div>
             
+            <div class="hyl-box" onclick="openImage('1гіл-пер.jpg')"><img src="1гіл-пер.jpg"><span>1 HYL (Face)</span></div>
             <div class="hyl-box" onclick="openImage('1гіл-зад.jpg')"><img src="1гіл-зад.jpg"><span>1 HYL (Back)</span></div>
-            <div class="hyl-box" onclick="openImage('2гіли-пер.jpg')"><img src="2гіл-пер.jpg"><span>2 HYL (Face)</span></div>
-            <div class="hyl-box" onclick="openImage('2гіли-зад.jpg')"><img src="2гіл-зад.jpg"><span>2 HYL (Back)</span></div>
+            <div class="hyl-box" onclick="openImage('2гіл-пер.jpg')"><img src="2гіл-пер.jpg"><span>2 HYL (Face)</span></div>
+            <div class="hyl-box" onclick="openImage('2гіл-зад.jpg')"><img src="2гіл-зад.jpg"><span>2 HYL (Back)</span></div>
             <div class="hyl-box" onclick="openImage('5гіл-пер.jpg')"><img src="5гіл-пер.jpg"><span>5 HYL (Face)</span></div>
             <div class="hyl-box" onclick="openImage('5гіл-зад.jpg')"><img src="5гіл-зад.jpg"><span>5 HYL (Back)</span></div>
             <div class="hyl-box" onclick="openImage('10гіл-пер.jpg')"><img src="10гіл-пер.jpg"><span>10 HYL (Face)</span></div>
@@ -243,8 +239,8 @@
     <footer>&copy; 2025 HYLAEA-NOVA | THE SOVEREIGNTY PROJECT</footer> 
 
     <script>
-        const popTarget = 0;
-        const raisedTarget = 0;
+        const popTarget = 1450;
+        const raisedTarget = 875000;
         const totalPrice = 15000000;
 
         function animate() {
@@ -279,13 +275,11 @@
 
         function scrollToTab(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
         
-        // Функція для відкриття модального вікна
         function openImage(url) { 
             document.getElementById('modal').style.display = 'flex'; 
             document.getElementById('modalImg').src = url; 
         }
         
-        // Функція для закриття модального вікна
         function closeImage() { 
             document.getElementById('modal').style.display = 'none'; 
             document.getElementById('modalImg').src = '';
